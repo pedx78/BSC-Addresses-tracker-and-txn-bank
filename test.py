@@ -10,11 +10,9 @@ test = {'status': '1',
 
 print(test['result'][0]['blockNumber'])
 
-import myname
+whales = [{"0xcC64ea842FcDe4283CF239259f7462Ef809c44FD",5},
+         {"0x7238B14Ed465991EecCB9346cf435eE047dea6eD",8}]
 
+for whale in whales:
+        print(whale)
 
-name = myname.get_name()
-print("hello {}".format(name))
-
-
-#I wanr rhis on master

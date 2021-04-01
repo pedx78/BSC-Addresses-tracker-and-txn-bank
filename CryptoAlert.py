@@ -3,9 +3,13 @@ import requests
 import json
 import confidential
 
-
 ApiKey = confidential.get_BSC_API_KEY()
 whale1 = "0xcC64ea842FcDe4283CF239259f7462Ef809c44FD"
+whales = ["0xcC64ea842FcDe4283CF239259f7462Ef809c44FD",
+         "0x7238B14Ed465991EecCB9346cf435eE047dea6eD",
+          "0x86B695aaa2600668CEC754C7827357626B188054",
+          "0x2c46B8fdCBe827A814DA412FF1EBDc2544e683c1",
+          "0xA803fc1c1e83d6389865e1248Dc924ed4C6953De"]
 
 # open web with overview of the whale
 whaleOverview = "https://bscscan.com/address/"+whale1
@@ -24,12 +28,20 @@ def getTransactions(whale, interval):
 
     response = requests.get(transactions)
     DecodedTransactions = json.loads(response.text)
-    print(DecodedTransactions)
-    print(DecodedTransactions['result'][0]['tokenName'])
+    token = DecodedTransactions['result'][0]['tokenName']
+
+    value = float(DecodedTransactions['result'][0]['value'])
+    tokenDecimal = DecodedTransactions['result'][0]['tokenDecimal']
+    aumount = int(value)/int(10)**(int(tokenDecimal))
+    contractAddress = DecodedTransactions['result'][0]['contractAddress']
+
+    print("Token name: "+ token + " #tokens: " + str(aumount))
+    print("Contract address: " + contractAddress)
+    
 
 
-
-getBalance(whale1)
-getTransactions(whale1, 1)
+for whale in whales:
+    getBalance(whale)
+    getTransactions(whale, 1)
 
 
