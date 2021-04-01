@@ -16,3 +16,12 @@ whales = [{"0xcC64ea842FcDe4283CF239259f7462Ef809c44FD",5},
 for whale in whales:
         print(whale)
 
+import pandas as pd
+
+cars = {'Address': ['Honda Civic','Toyota Corolla','Ford Focus','Audi A4'],
+        '': [22000,25000,27000,35000]
+        }
+
+df = pd.DataFrame(cars, columns = ['Brand', 'Price'])
+
+print (df)
