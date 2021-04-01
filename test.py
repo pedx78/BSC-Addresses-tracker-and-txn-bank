@@ -12,9 +12,18 @@ print(test['result'][0]['blockNumber'])
 
 import myname
 
+#this is add on
 name = myname.get_name()
 print("hello {}".format(name))
 
-#this is in branch multiple whales
-#lol
-#hrlp
+
+
+
+
+
+
+
+
+
+
+#this is in master
