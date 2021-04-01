@@ -1,8 +1,9 @@
 import webbrowser
 import requests
 import json
+import confidential
 
-ApiKey = "92MM9Q3NG1AHGE21YEHMX6F56VWM6GM3PW"
+ApiKey = confidential.get_BSC_API_KEY()
 whale1 = "0xcC64ea842FcDe4283CF239259f7462Ef809c44FD"
 
 # open web with overview of the whale
