@@ -9,3 +9,8 @@ test = {'status': '1',
         'value': '9400000', 'tokenName': 'UNITi', 'tokenSymbol': 'UNIT', 'tokenDecimal': '9', 'transactionIndex': '13', 'gas': '154734', 'gasPrice': '10000000000', 'gasUsed': '103156', 'cumulativeGasUsed': '2243418', 'input': 'deprecated', 'confirmations': '80877'}]}
 
 print(test['result'][0]['blockNumber'])
+
+import myname
+
+name = myname.get_name()
+print("hello {}".format(name))
