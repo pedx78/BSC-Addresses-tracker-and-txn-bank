@@ -2,6 +2,7 @@ import webbrowser
 import requests
 import json
 import confidential
+import time
 
 ApiKey = confidential.get_BSC_API_KEY()
 whale1 = "0xcC64ea842FcDe4283CF239259f7462Ef809c44FD"
@@ -25,16 +26,16 @@ webbrowser.open(whaleOverview, new=2)
 def getBalance(whale):
     #Call balance command, pass whale address and personal BSC APIkey, open browser with balance
     whaleBalance = "https://api.bscscan.com/api?module=account&action=balance&address="+whale+"&tag=latest&apikey="+ApiKey+".json"
-    webbrowser.open(whaleBalance, new=2)
+    #webbrowser.open(whaleBalance, new=2)
 
 def getTransactions(whale):
     #Call tokens transactions command, pass whale address, number of results , and key. open browser with results
     transactions = "https://api.bscscan.com/api?module=account&action=tokentx&address="+whale+"&page=1&offset=1&sort=desc&apikey="+ApiKey+".json"
-    webbrowser.open(transactions, new=2)
+    #webbrowser.open(transactions, new=2)
 
     response = requests.get(transactions)
     DecodedTransactions = json.loads(response.text)
-    token = DecodedTransactions['result'][0]['tokenName']
+    token = (DecodedTransactions['result'][0]['tokenName'])
 
     value = float(DecodedTransactions['result'][0]['value'])
     tokenDecimal = DecodedTransactions['result'][0]['tokenDecimal']
@@ -49,5 +50,6 @@ def getTransactions(whale):
 for whale in whales:
     getBalance(whale)
     getTransactions(whale)
+    time.sleep(1)
 
 
