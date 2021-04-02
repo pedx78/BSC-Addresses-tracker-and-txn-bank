@@ -15,19 +15,13 @@ whales = [{"0xcC64ea842FcDe4283CF239259f7462Ef809c44FD",5},
 
 a = ('UNITi', 0.0094, '0x69af49e82ea59a97f3879547f67b913c216c3714')
 
+from numpy.core.numeric import False_
 import pandas as pd
 from datetime import datetime
 from datetime import timedelta
 
-cars = {'Brand': ['Honda Civic','Toyota Corolla','Ford Focus','Audi A4'],
-        'Price': [22000,25000,27000,35000]
-        }
+from pandas.io.pytables import Table
 
-df = pd.DataFrame(cars, columns = ['Brand', 'Price'])
-
-print (df)
-cars['Brand'] += ['TOyoya']
-print(cars['Brand'])
 
 '''
 now = datetime.now()
@@ -40,5 +34,23 @@ print(timeConverter(1617322900))
 time2 = timeConverter(1617322900)
 print(datetime.timedelta(seconds=18277, microseconds=570327))
 '''
+input_ = ['0xcC64ea842FcDe4283CF239259f7462Ef809c44FD', 'UNITi', 0.0094, '0x69af49e82ea59a97f3879547f67b913c216c3714', '3:5:20:55']
+WhalesDataset = {'Address': [],
+        'Token': [],
+        'Aumount': [],
+        'TokenContract': [],
+        'Age': [],
+        }
 
+df = pd.DataFrame(WhalesDataset, columns = ['Address', 'Token', 'Aumount','TokenContract','Age'])
 
+print("empty")
+print(df)
+
+def addTable(info):
+        df2 = pd.DataFrame([info], columns = ['Address', 'Token', 'Aumount','TokenContract','Age'])
+        Table = df.append(df2, ignore_index=True)
+        return Table
+print("new")
+
+print(addTable(input_))

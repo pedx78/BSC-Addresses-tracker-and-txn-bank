@@ -74,10 +74,11 @@ def getTransactions(whale):
 
     #print("Token name: "+ token + " #tokens: " + str(aumount))
     #print("Contract address: " + contractAddress)
-    return token, aumount, contractAddress, Age
+    return [whale, token, aumount, contractAddress, Age]
     
 
-results = {}
+results = {'whale': []
+            }
 for whale in whales:
     getBalance(whale)
     #getTransactions(whale)
