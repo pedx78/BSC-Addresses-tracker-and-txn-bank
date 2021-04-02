@@ -1,4 +1,6 @@
 import webbrowser
+from pandas.core.dtypes.missing import notnull
+from pandas.io.pytables import Table
 import requests
 import json
 import confidential
@@ -75,17 +77,28 @@ def getTransactions(whale):
     #print("Token name: "+ token + " #tokens: " + str(aumount))
     #print("Contract address: " + contractAddress)
     return [whale, token, aumount, contractAddress, Age]
-    
 
-results = {'whale': []
-            }
+WhalesDataset = {'Address': [],
+        'Token': [],
+        'Aumount': [],
+        'TokenContract': [],
+        'Age': [],
+        }
+df = pd.DataFrame(WhalesDataset, columns = ['Address', 'Token', 'Aumount','TokenContract','Age'])
+
+def addTable(info):
+        df2 = pd.DataFrame([info], columns = ['Address', 'Token', 'Aumount','TokenContract','Age'])
+        Table = df.append(df2, ignore_index=True)
+        return Table
+
+
+
+
 for whale in whales:
     getBalance(whale)
-    #getTransactions(whale)
-    #getTransactions(whale)
-    print(getTransactions(whale))
+    print(addTable(getTransactions(whale)))
     time.sleep(1)
-    #results[whale] = getTransactions(whale)
-    #print(results[whale])
+    
+
 
 
