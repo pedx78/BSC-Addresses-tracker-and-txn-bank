@@ -4,6 +4,13 @@ import json
 import confidential
 import time
 
+import numpy as np
+import pandas as pd
+from datetime import datetime
+from datetime import timedelta
+
+
+
 ApiKey = confidential.get_BSC_API_KEY()
 whale1 = "0xcC64ea842FcDe4283CF239259f7462Ef809c44FD"
 whales = ["0xcC64ea842FcDe4283CF239259f7462Ef809c44FD",
@@ -18,10 +25,31 @@ whales = ["0xcC64ea842FcDe4283CF239259f7462Ef809c44FD",
           "0x2D338C5549F437CD5f35A1d8C7A244c048f9C00a"
           ]
 
+
+
 # open web with overview of the whale
 whaleOverview = "https://bscscan.com/address/"+whale1
 webbrowser.open(whaleOverview, new=2)
 
+
+
+def timeConverter(timestamp):
+        solution = datetime.fromtimestamp(timestamp)
+        return solution
+
+def timePassed(since):
+    now = datetime.now()
+    time_passed = now - since
+    time = time_passed.total_seconds()
+    day = time // (24 * 3600)
+    time = time % (24 * 3600)
+    hour = time // 3600
+    time %= 3600
+    minutes = time // 60
+    time %= 60
+    seconds = time
+    solution =  "%d:%d:%d:%d" % (day, hour, minutes, seconds)
+    return solution
 
 def getBalance(whale):
     #Call balance command, pass whale address and personal BSC APIkey, open browser with balance
@@ -41,15 +69,22 @@ def getTransactions(whale):
     tokenDecimal = DecodedTransactions['result'][0]['tokenDecimal']
     aumount = int(value)/int(10)**(int(tokenDecimal))
     contractAddress = DecodedTransactions['result'][0]['contractAddress']
+    timeStamp = timeConverter(int(DecodedTransactions['result'][0]['timeStamp']))
+    Age = timePassed(timeStamp)
 
-    print("Token name: "+ token + " #tokens: " + str(aumount))
-    print("Contract address: " + contractAddress)
+    #print("Token name: "+ token + " #tokens: " + str(aumount))
+    #print("Contract address: " + contractAddress)
+    return token, aumount, contractAddress, Age
     
 
-
+results = {}
 for whale in whales:
     getBalance(whale)
-    getTransactions(whale)
+    #getTransactions(whale)
+    #getTransactions(whale)
+    print(getTransactions(whale))
     time.sleep(1)
+    #results[whale] = getTransactions(whale)
+    #print(results[whale])
 
 

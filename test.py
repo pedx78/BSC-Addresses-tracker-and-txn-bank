@@ -8,20 +8,37 @@ test = {'status': '1',
        'to': '0xcc64ea842fcde4283cf239259f7462ef809c44fd',
         'value': '9400000', 'tokenName': 'UNITi', 'tokenSymbol': 'UNIT', 'tokenDecimal': '9', 'transactionIndex': '13', 'gas': '154734', 'gasPrice': '10000000000', 'gasUsed': '103156', 'cumulativeGasUsed': '2243418', 'input': 'deprecated', 'confirmations': '80877'}]}
 
-print(test['result'][0]['blockNumber'])
+print(test['result'][0]['timeStamp'])
 
 whales = [{"0xcC64ea842FcDe4283CF239259f7462Ef809c44FD",5},
          {"0x7238B14Ed465991EecCB9346cf435eE047dea6eD",8}]
 
-for whale in whales:
-        print(whale)
+a = ('UNITi', 0.0094, '0x69af49e82ea59a97f3879547f67b913c216c3714')
 
 import pandas as pd
+from datetime import datetime
+from datetime import timedelta
 
-cars = {'Address': ['Honda Civic','Toyota Corolla','Ford Focus','Audi A4'],
-        '': [22000,25000,27000,35000]
+cars = {'Brand': ['Honda Civic','Toyota Corolla','Ford Focus','Audi A4'],
+        'Price': [22000,25000,27000,35000]
         }
 
 df = pd.DataFrame(cars, columns = ['Brand', 'Price'])
 
 print (df)
+cars['Brand'] += ['TOyoya']
+print(cars['Brand'])
+
+'''
+now = datetime.now()
+current_time = now.strftime("%H:%M:%S")
+print("Current Time =", current_time)
+def timeConverter(timestamp):
+        solution = datetime.fromtimestamp(timestamp)
+        return solution
+print(timeConverter(1617322900))
+time2 = timeConverter(1617322900)
+print(datetime.timedelta(seconds=18277, microseconds=570327))
+'''
+
+
