@@ -27,7 +27,7 @@ def getTokenBalance(whale):
     return final
 
 #print(getTokenBalance("0xcC64ea842FcDe4283CF239259f7462Ef809c44FD"))
-import webbrowser
+
 #0xcc64ea842fcde4283cf239259f7462ef809c44fd
 #0x1a0dad3ca8c0612b4828bf22677617647f7fe00d09ee4890da0f79ad23064880
 
@@ -57,8 +57,8 @@ def getTxnValue(hash, action):
             #print(a[0].text)
             #print(type(a[0].text))
             responseArray.append(a[0].text)
-            #print(responseArray)
-    
+            print(responseArray)
+    '''
     if action == "BUY":
         value = responseArray[1]
         value = Txn_Value_Cleaner(value)
@@ -67,8 +67,9 @@ def getTxnValue(hash, action):
         value = Txn_Value_Cleaner(value)
     else:
         value = "ERROR"
-    print("INFO---------------")
-    return value
+        '''
+    
+    return responseArray
 
 
 
@@ -86,8 +87,8 @@ def Txn_Value_Cleaner(input_):
             return float(b)
         index += 1
 
-print("SELL EXAMPLE-------------")
+#print("SELL EXAMPLE-------------")
 #print(type(getTxnValue('0x1a0dad3ca8c0612b4828bf22677617647f7fe00d09ee4890da0f79ad23064880')))
-print(getTxnValue('0x2e46abdf23d156801f2db6968c07841b1b169d77e1c02e9cd2559ecc2dd61736', "SELL"))
+print(getTxnValue('0x87e296cab36467a7d7f84a509d2609b4fc9e49984d1ca8c47bf0d827dd83a3e0', "BUY"))
 #print("ARRAY: ------------")
 #print(responseArray)
