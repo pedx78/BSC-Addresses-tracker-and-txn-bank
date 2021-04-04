@@ -68,10 +68,10 @@ def getBalance(whale):
 def txn_direction(whale, from_):
     
     whale = whale.lower()
-    if (whale != from_):
-        return "BUY"
-    elif(whale == from_):
+    if (whale == from_):
         return "SELL"
+    elif(whale != from_):
+        return "BUY"
     else:
         return "ERROR"
         
@@ -108,8 +108,8 @@ def getTransactions(whale):
     #print("Contract address: " + contractAddress)
     hash = (DecodedTransactions['result'][0]['hash'])
 
-        #Get txn value on dollars
-    Value_Dollars = w.getTxnValue(hash, action)
+    #Get txn value on dollars
+    Value_Dollars = w.getTxnValue(hash, txn_direction(whale,from_))
 
     
 
@@ -127,12 +127,12 @@ WhalesDataset = {'Address': [],
         'Age': [],
         'Action': [],
         'Total_Balance': [],
-        'Value $': []
+        'DOLLARS': []
         }
-df = pd.DataFrame(WhalesDataset, columns = ['Address','Hash', 'Token', 'Aumount','TokenContract','Age','Action','Total_Balance','Value $'])
+df = pd.DataFrame(WhalesDataset, columns = ['Address','Hash', 'Token', 'Aumount','TokenContract','Age','Action','Total_Balance','DOLLARS'])
 
 def addTable(info):
-        df2 = pd.DataFrame([info], columns = ['Address','Hash', 'Token', 'Aumount','TokenContract','Age','Action','Total_Balance','Value $'])
+        df2 = pd.DataFrame([info], columns = ['Address','Hash', 'Token', 'Aumount','TokenContract','Age','Action','Total_Balance','DOLLARS'])
         Table = df.append(df2, ignore_index=True)
         return Table
 

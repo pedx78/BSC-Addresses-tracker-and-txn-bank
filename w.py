@@ -1,3 +1,4 @@
+from pandas.core.dtypes.missing import notnull
 import requests
 from bs4 import BeautifulSoup
 #https://bscscan.com/address/0xcC64ea842FcDe4283CF239259f7462Ef809c44FD
@@ -33,6 +34,8 @@ def getTokenBalance(whale):
 
 responseArray = []
 def getTxnValue(hash, action):
+    responseArray = []
+    value = 0
     url = "https://bscscan.com/tx/" + hash
     #webbrowser.open(url, new=2)
     page = requests.get(url)
@@ -57,19 +60,24 @@ def getTxnValue(hash, action):
             #print(a[0].text)
             #print(type(a[0].text))
             responseArray.append(a[0].text)
-            print(responseArray)
-    '''
-    if action == "BUY":
-        value = responseArray[1]
-        value = Txn_Value_Cleaner(value)
-    elif action == "SELL":
-        value = responseArray[-1]
-        value = Txn_Value_Cleaner(value)
+            #print(responseArray)
+    if len(responseArray) > 1:
+        if action == "BUY":
+            value = responseArray[1]
+            value = Txn_Value_Cleaner(value)
+            
+        elif action == "SELL":
+            value = responseArray[-1]
+            value = Txn_Value_Cleaner(value)
+            
+            #value = "SELL-------"
+        else:
+            value = "ERROR"
     else:
-        value = "ERROR"
-        '''
+        return "SMALL RPS"
+    #print(responseArray)
+    return value
     
-    return responseArray
 
 
 
@@ -87,8 +95,11 @@ def Txn_Value_Cleaner(input_):
             return float(b)
         index += 1
 
+        
+
+
 #print("SELL EXAMPLE-------------")
 #print(type(getTxnValue('0x1a0dad3ca8c0612b4828bf22677617647f7fe00d09ee4890da0f79ad23064880')))
-print(getTxnValue('0x87e296cab36467a7d7f84a509d2609b4fc9e49984d1ca8c47bf0d827dd83a3e0', "BUY"))
+#print(getTxnValue('0x3b0d46e1d2b4a4bf4b234cb049bdfb0caec1cf6d7f2b72a207125b2e5befb1b7',"BUY"))
 #print("ARRAY: ------------")
 #print(responseArray)
