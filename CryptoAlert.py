@@ -14,6 +14,7 @@ from datetime import datetime
 from datetime import timedelta
 
 import WebScrapper as w
+import mySql_Interaction as SQL
 
 print("Running...")
 
@@ -193,23 +194,19 @@ sqlFormula = "INSERT INTO test (Address, Total_Balance, Hash, Action, Aumount, T
 
 
 whale_index = 0
-packet = []
+
 for whale in whales:
     
     #getBalance(whale)
     print("Fetching Information for Whale: " + whale)
     result = getTransactions(whale)
-    print(result)
-    
-    packet.append(result)
-    print(packet)
-
+    hash_ = result[2]
+    if SQL.check_hash_diplucate(hash_) == 0:
+        mycursor.execute(sqlFormula, result)
+        mydb.commit()
     whale_index += 1
     if whale_index == len(whales):
-        print("------RESULTS------")
-        print(packet)
-        mycursor.executemany(sqlFormula, packet)
-        mydb.commit()
+
         print("EXECUTED")
 
         
