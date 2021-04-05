@@ -87,9 +87,9 @@ def percentage_Invested(action, balance, value):
                 perc = max(0.0001, perc)
                 # Uncomment next for reciving a str
                 solution = str(perc) + " %" 
-                return perc
+                return float(perc)
         else:
-                return "SELL / SENT TO OTHERS"
+                return float(0.0)
 
     
 #   [MAIN ROOT]   Fetch all info 
@@ -144,13 +144,15 @@ def getTransactions(whale):
     #Get percentage invested
     invested  = percentage_Invested(action, Total_Balance, Value_Dollars)
 
-    
+    #print(Age)
+    #print(type(Age))
 
     
     #[OPTION] print results as they are fetched
-    #print(whale, Total_Balance, hash, action, aumount, token, contractAddress, Value_Dollars, invested, Age)
+    #print((whale, Total_Balance, hash, action, aumount, token, contractAddress, Value_Dollars, invested, Age))
    
-    return [whale, Total_Balance, hash, action, aumount, token, contractAddress, Value_Dollars, invested, Age]
+    return (whale, Total_Balance, hash, action, aumount, token, contractAddress, Value_Dollars, invested, Age)
+
 
 WhalesDataset = {'Address': [],
         'Hash': [],
@@ -173,17 +175,53 @@ def add_to_temporal(a, index):
     
 
 
+
+import mysql.connector
+print("RUNNING")
+mydb = mysql.connector.connect(
+    host = "10.0.0.143",
+    user = "root",
+    passwd = "M0lusc0s436$",
+    auth_plugin='mysql_native_password',
+    database="CRYPTO_DATABASE"
+)
+
+mycursor = mydb.cursor()
+
+sqlFormula = "INSERT INTO test (Address, Total_Balance, Hash, Action, Aumount, Token, TokenContract, DOLLARS, Invested, Age) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
+
+
 whale_index = 0
+packet = []
 for whale in whales:
     
-    getBalance(whale)
+    #getBalance(whale)
     print("Fetching Information for Whale: " + whale)
+    result = getTransactions(whale)
+    print(result)
+    
+    packet.append(result)
+    print(packet)
+
+    whale_index += 1
+    if whale_index == len(whales):
+        print("------RESULTS------")
+        print(packet)
+        mycursor.executemany(sqlFormula, packet)
+        mydb.commit()
+        print("EXECUTED")
+
+        
+    
+    '''
     add_to_temporal(getTransactions(whale), whale_index)
     whale_index += 1
     if whale_index == len(whales):
         print("---------- TEMPORAL TABLE WITH RESULTS ----------")
         pd.set_option('max_columns', None)
         print(temporal_panda)
+    '''
     time.sleep(1)
 
 
