@@ -15,30 +15,74 @@ whales = [{"0xcC64ea842FcDe4283CF239259f7462Ef809c44FD",5},
 
 a = ('UNITi', 0.0094, '0x69af49e82ea59a97f3879547f67b913c216c3714')
 
+from numpy.core.numeric import False_
 import pandas as pd
 from datetime import datetime
 from datetime import timedelta
 
-cars = {'Brand': ['Honda Civic','Toyota Corolla','Ford Focus','Audi A4'],
-        'Price': [22000,25000,27000,35000]
+from pandas.io.pytables import Table
+
+
+input_ = ['0xcC64ea842FcDe4283CF239259f7462Ef809c44FD', 'UNITi', 0.0094, '0x69af49e82ea59a97f3879547f67b913c216c3714', '3:5:20:55']
+WhalesDataset = {'Address': [],
+        'Token': [],
+        'Aumount': [],
+        'TokenContract': [],
+        'Age': [],
         }
 
-df = pd.DataFrame(cars, columns = ['Brand', 'Price'])
+df = pd.DataFrame(WhalesDataset, columns = ['Address', 'Token', 'Aumount','TokenContract','Age'])
 
-print (df)
-cars['Brand'] += ['TOyoya']
-print(cars['Brand'])
+
+
+def addTable(info):
+        df2 = pd.DataFrame([info], columns = ['Address', 'Token', 'Aumount','TokenContract','Age'])
+        Table = df.append(df2, ignore_index=True)
+        return Table
+#print("new")
+
+a = 'B4Bdv6'
+print(a.lower())
+
+whales = ["0xcc64ea842fcde4283cf239259f7462ef809c44fd",
+         "0x7238B14Ed465991EecCB9346cf435eE047dea6eD",
+          "0x86B695aaa2600668CEC754C7827357626B188054",
+          "0x2c46B8fdCBe827A814DA412FF1EBDc2544e683c1",
+          "0xA803fc1c1e83d6389865e1248Dc924ed4C6953De",
+          "0x0C8C62A7F883C6E47c8C5790474d4Eb8a48924f2",
+          "0x82dE83D35f6F95A87FA04328724d2063f834268F",
+          "0x52C717CE5a6b483A890bCDC3114ff140E679B43F",
+          "0x0D5872177064bc858c9dD926a02cE356a317727E",
+          "0x2D338C5549F437CD5f35A1d8C7A244c048f9C00a"
+          ]
+
+def changeCase(whales):
+    for whale in whales:
+        whale = whale.lower()
+        print(whale)
+
+#changeCase(whales)
 
 '''
-now = datetime.now()
-current_time = now.strftime("%H:%M:%S")
-print("Current Time =", current_time)
+def percentage_Invested(action, balance, value):
+        if (action == "BUY") and (isinstance(balance, float)) and (isinstance(value, float)):
+                perc = (value / balance) * 100
+                solution = str(perc) + " %" 
+                return solution
+        else:
+                return "SELL/NO $ VALUE"
+
+print(percentage_Invested("SELL", 1000.0, 100.0))
+'''
+
+
+def timePassed(since):
+    now = datetime.now()
+    time_passed = now - since
+
+
 def timeConverter(timestamp):
         solution = datetime.fromtimestamp(timestamp)
         return solution
-print(timeConverter(1617322900))
-time2 = timeConverter(1617322900)
-print(datetime.timedelta(seconds=18277, microseconds=570327))
-'''
 
-
+#print(timeConverter(1617639691))
