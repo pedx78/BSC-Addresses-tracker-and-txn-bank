@@ -61,4 +61,28 @@ def changeCase(whales):
         whale = whale.lower()
         print(whale)
 
-changeCase(whales)
+#changeCase(whales)
+
+'''
+def percentage_Invested(action, balance, value):
+        if (action == "BUY") and (isinstance(balance, float)) and (isinstance(value, float)):
+                perc = (value / balance) * 100
+                solution = str(perc) + " %" 
+                return solution
+        else:
+                return "SELL/NO $ VALUE"
+
+print(percentage_Invested("SELL", 1000.0, 100.0))
+'''
+
+
+def timePassed(since):
+    now = datetime.now()
+    time_passed = now - since
+
+
+def timeConverter(timestamp):
+        solution = datetime.fromtimestamp(timestamp)
+        return solution
+
+#print(timeConverter(1617639691))

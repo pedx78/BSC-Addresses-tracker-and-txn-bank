@@ -1,14 +1,29 @@
 from pandas.core.dtypes.missing import notnull
 import requests
+from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 #https://bscscan.com/address/0xcC64ea842FcDe4283CF239259f7462Ef809c44FD
-
+import webbrowser
 def getTokenBalance(whale):
+    url = "https://bscscan.com/address/" + whale
+    #print(url)
+  
+    '''
     url = "https://bscscan.com/address/" + whale
     page = requests.get(url)
 
     soup = BeautifulSoup(page.content, 'html.parser')
     getId = soup.find(id='availableBalanceDropdown')
+    results = getId.text
+    '''
+    req = Request(url , headers={'User-Agent': 'Mozilla/5.0'})
+    page = urlopen(req).read()
+    
+
+    soup = BeautifulSoup(page, 'html.parser')
+    #print(soup)
+    getId = soup.find(id='availableBalanceDropdown')
+    #print(type(getId))
     results = getId.text
 
     extra = getId.find_all('span', class_='badge badge-primary mx-1')
@@ -25,22 +40,28 @@ def getTokenBalance(whale):
     final = final.replace(',', '')
     final = float(final)
     #print(type(final))
+    #webbrowser.open(url, new=2)
     return final
 
-#print(getTokenBalance("0xcC64ea842FcDe4283CF239259f7462Ef809c44FD"))
 
-#0xcc64ea842fcde4283cf239259f7462ef809c44fd
-#0x1a0dad3ca8c0612b4828bf22677617647f7fe00d09ee4890da0f79ad23064880
 
-responseArray = []
+#print(getTokenBalance("0x0c8c62a7f883c6e47c8c5790474d4eb8a48924f2"))
+
+
+
+
 def getTxnValue(hash, action):
     responseArray = []
     value = 0
     url = "https://bscscan.com/tx/" + hash
     #webbrowser.open(url, new=2)
-    page = requests.get(url)
 
-    soup = BeautifulSoup(page.content, 'html.parser')
+    #page = requests.get(url)
+
+    req = Request(url , headers={'User-Agent': 'Mozilla/5.0'})
+    page = urlopen(req).read()
+    
+    soup = BeautifulSoup(page, 'html.parser')
     #getId = soup.find(id='availableBalanceDropdown')
     #results = getId.text
 
@@ -48,9 +69,11 @@ def getTxnValue(hash, action):
     #results1 = results.find_all(attrs={"data-toggle": "tooltip"})
     #print("NEXT")
     #done = extra[0].text
+    #print(results)
     index = 0
-    
+    #print("HELLO")
     for result in results:
+        #print("run")
         a = results[index].find_all(attrs={"data-toggle": "tooltip"})
         index += 1
         #print(result)
@@ -100,6 +123,6 @@ def Txn_Value_Cleaner(input_):
 
 #print("SELL EXAMPLE-------------")
 #print(type(getTxnValue('0x1a0dad3ca8c0612b4828bf22677617647f7fe00d09ee4890da0f79ad23064880')))
-#print(getTxnValue('0x3b0d46e1d2b4a4bf4b234cb049bdfb0caec1cf6d7f2b72a207125b2e5befb1b7',"BUY"))
+#print(getTxnValue('0x4998f506289d95b50fb5f8bc91da0b47bd0a091ad1837e5119a9e4df55b9b049',"SELL"))
 #print("ARRAY: ------------")
 #print(responseArray)
