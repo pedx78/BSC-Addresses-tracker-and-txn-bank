@@ -95,9 +95,9 @@ def getTxnValue(hash, action):
             
             #value = "SELL-------"
         else:
-            value = "ERROR"
+            value = 0.0
     else:
-        return "SMALL RPS"
+        return 0.0
     #print(responseArray)
     return value
     
