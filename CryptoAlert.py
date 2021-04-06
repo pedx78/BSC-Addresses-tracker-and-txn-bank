@@ -8,7 +8,6 @@ import json
 import confidential
 import time
 
-import numpy as np
 import pandas as pd
 from datetime import datetime
 from datetime import timedelta
@@ -16,20 +15,38 @@ from datetime import timedelta
 import WebScrapper as w
 import mySql_Interaction as SQL
 
+#while True:
+
+
+
 print("Running...")
 
 ApiKey = confidential.get_BSC_API_KEY()
-whales = ["0xcc64ea842fcde4283cf239259f7462ef809c44fd",
-         "0x7238b14ed465991eeccb9346cf435ee047dea6ed",
-          "0x86b695aaa2600668cec754c7827357626b188054",
-          "0x2c46b8fdcbe827a814da412ff1ebdc2544e683c1",
-          "0xa803fc1c1e83d6389865e1248dc924ed4c6953de",
-          "0x0c8c62a7f883c6e47c8c5790474d4eb8a48924f2",
-          "0x82de83d35f6f95a87fa04328724d2063f834268f",
-          "0x52c717ce5a6b483a890bcdc3114ff140e679b43f",
-          "0x0d5872177064bc858c9dd926a02ce356a317727e",
-          "0x2d338c5549f437cd5f35a1d8c7a244c048f9c00a"
-          ]
+whales = ["0x2c46b8fdcbe827a814da412ff1ebdc2544e683c1",
+        "0x82de83d35f6f95a87fa04328724d2063f834268f",
+        "0x52c717ce5a6b483a890bcdc3114ff140e679b43f",
+        "0x0d5872177064bc858c9dd926a02ce356a317727e",
+        "0x2d338c5549f437cd5f35a1d8c7a244c048f9c00a",
+        "0xcc64ea842fcde4283cf239259f7462ef809c44fd",
+        "0x86b695aaa2600668cec754c7827357626b188054",
+        "0x8c7de13ecf6e92e249696defed7aa81e9c93931a",
+        "0x0c8c62a7f883c6e47c8c5790474d4eb8a48924f2",
+        "0xa803fc1c1e83d6389865e1248dc924ed4c6953de",
+        "0xa803fc1c1e83d6389865e1248dc924ed4c6953de",
+        "0xd3dcccbb8466cd22f090452cd0ffdb05f2e73dd3",
+        "0x1bbea62a08927c4b16493b5c20ab69b9dba295e0",
+        "0xfd640bdb374729fe78d24bbe4e5b8faf83ae2ed5",
+        "0x01fb09f658fd186c4033500ae798917cacfda132",
+        "0xc6c8978c4a213ebde8734432c75a7b5409999999",
+        "0xbf8d5eb2723c3ab4bbd7527efb38c8e83d43832b",
+        "0x511411d1a19be5259694b06f403c83f21a10258b",
+        "0x326ea036c2bf0021f3909ab08cf8c230c7bfc4d5",
+        "0x2da133db4c0084c4ffe55cb656c81ccc0543216f",
+        "0x7238b14ed465991eeccb9346cf435ee047dea6ed",
+        "0x4cf5a42f10b11758ddb579dfb637d533ea858b43",
+        "0xc02bafe7adc61ea8ec89c5e8eb391bb947ed222e",
+        "0x4b44c71c34ecd2f64c1a4223149a2b39ca113f98",
+        ]
 
 #   [UTILITY]   change Address to all lowerCase
 def changeCase(whales):
@@ -151,7 +168,7 @@ def getTransactions(whale):
     
     #[OPTION] print results as they are fetched
     #print((whale, Total_Balance, hash, action, aumount, token, contractAddress, Value_Dollars, invested, Age))
-   
+
     return (whale, Total_Balance, hash, action, aumount, token, contractAddress, Value_Dollars, invested, Age)
 
 
@@ -178,7 +195,7 @@ def add_to_temporal(a, index):
 
 
 import mysql.connector
-print("RUNNING")
+
 mydb = mysql.connector.connect(
     host = "10.0.0.143",
     user = "root",
@@ -201,9 +218,18 @@ for whale in whales:
     print("Fetching Information for Whale: " + whale)
     result = getTransactions(whale)
     hash_ = result[2]
+    #print("HASH IN SCRIPT")
+    #print(hash_)
+    #print("--------------")
+    #print("RESULT:")
+    print("Number of same entries on database: " + str(SQL.check_hash_diplucate(hash_)))
     if SQL.check_hash_diplucate(hash_) == 0:
+        print("commiting....")
         mycursor.execute(sqlFormula, result)
         mydb.commit()
+        print("COMMITED")
+    else:
+        print("ENTRY ALREADY IN DATABASE")
     whale_index += 1
     if whale_index == len(whales):
 
@@ -220,9 +246,6 @@ for whale in whales:
         print(temporal_panda)
     '''
     time.sleep(1)
-
-
-    
 
 
 

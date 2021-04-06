@@ -1,0 +1,6 @@
+added to:
+C:\Users\Juan\AppData\Local\Programs\Python\Python38\Lib
++ bs4
++ bs4-0.0.1dist.info
++ mysql
++ mysql_connector_python-8.0.23.dist-info

@@ -1,0 +1,2 @@
+cd C:\Users\Juan\Documents\Crypto\Scripts
+start "Juan Crypto Database Populator" "C:/Users/Juan/AppData/Local/Programs/Python/Python38/python.exe" "c:/Users/Juan/Documents/Crypto/Scripts/CryptoAlert.py"
