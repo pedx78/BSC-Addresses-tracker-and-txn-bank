@@ -126,3 +126,6 @@ def Txn_Value_Cleaner(input_):
 #print(getTxnValue('0x4998f506289d95b50fb5f8bc91da0b47bd0a091ad1837e5119a9e4df55b9b049',"SELL"))
 #print("ARRAY: ------------")
 #print(responseArray)
+
+def teste():
+    print("Hello eorsfdf")

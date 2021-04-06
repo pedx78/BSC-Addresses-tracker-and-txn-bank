@@ -35,9 +35,11 @@ mydb.commit()
 '''
 
 mycursor = mydb.cursor()
+#input = '0x68eafb3ef3ad17283ed9a0289ee4adcb054d946c6c951747e3734c5ade58c6e6'
 
-#test = "'0x68eafb3ef3ad17283ed9a0289ee4adcb054d946c6c951747e3734c5ade58c6e6'"
-input = '0x68eafb3ef3ad17283ed9a0289ee4adcb054d946c6c951747e3734c5ade58c6e6'
+
+def insert_sting_middle(str, word):
+	return str[:2] + word + str[:2]
 
 def check_hash_diplucate(hash):
     call = "SELECT count(Hash) from test where Hash = " + insert_sting_middle("'", hash)
@@ -45,11 +47,11 @@ def check_hash_diplucate(hash):
     for c in mycursor:
         result = sum(c)
         return result
-        
-#print(check_hash_diplucate(test))
 
-def insert_sting_middle(str, word):
-	return str[:2] + word + str[:2]
+def Hash_in_module(hash):
+    return hash
+    
+print(check_hash_diplucate('0xa07fb6746da91f77d6d39229cb0cb8e6240c59c3737351133ab186a85f575728'))
 
-#print(insert_sting_middle("'", input))
-#print(check_hash_diplucate(input))
+
+
