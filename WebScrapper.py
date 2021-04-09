@@ -134,5 +134,3 @@ def Txn_Value_Cleaner(input_):
 #print("ARRAY: ------------")
 #print(responseArray)
 
-def teste():
-    print("Hello eorsfdf")

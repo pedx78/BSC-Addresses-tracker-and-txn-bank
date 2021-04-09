@@ -3,7 +3,7 @@ def get_name():
     
 import pandas as pd
 
-#a = [, , , , , '0:1:40:32', 'SELL', 64796480.35, 29578.58]
+
 
 whale = '0xcc64ea842fcde4283cf239259f7462ef809c44fd'
 hash = '0xb300d5d61ab134e1fdc4bc93c182d5c0a2b30a95aba99b1d222875ca12c474e2'
