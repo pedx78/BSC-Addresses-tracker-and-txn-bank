@@ -86,3 +86,11 @@ def timeConverter(timestamp):
         return solution
 
 #print(timeConverter(1617639691))
+import random
+def random_User():
+        users = ["Mozilla/5.0 (Windows NT 6.3; WOW64)", "AppleWebKit/537.36 (KHTML, like Gecko)", "Chrome/47.0.2526.69", "Safari/537.36"]
+        magic_number = random.randint(0, 3)
+        print(users[magic_number])
+random_User()
+
+print("HELOOL\ngfgfg")
