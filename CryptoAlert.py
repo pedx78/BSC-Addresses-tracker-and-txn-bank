@@ -22,20 +22,7 @@ import mySql_Interaction as SQL
 print("Running...")
 
 ApiKey = confidential.get_BSC_API_KEY()
-whales = ["0x2c46b8fdcbe827a814da412ff1ebdc2544e683c1",
-        "0x82de83d35f6f95a87fa04328724d2063f834268f",
-        "0x52c717ce5a6b483a890bcdc3114ff140e679b43f",
-        "0x0d5872177064bc858c9dd926a02ce356a317727e",
-        "0x2d338c5549f437cd5f35a1d8c7a244c048f9c00a",
-        "0xcc64ea842fcde4283cf239259f7462ef809c44fd",
-        "0x86b695aaa2600668cec754c7827357626b188054",
-        "0x8c7de13ecf6e92e249696defed7aa81e9c93931a",
-        "0x0c8c62a7f883c6e47c8c5790474d4eb8a48924f2",
-        "0xa803fc1c1e83d6389865e1248dc924ed4c6953de",
-        "0xa803fc1c1e83d6389865e1248dc924ed4c6953de",
-        "0xd3dcccbb8466cd22f090452cd0ffdb05f2e73dd3",
-        "0x1bbea62a08927c4b16493b5c20ab69b9dba295e0",
-        "0xfd640bdb374729fe78d24bbe4e5b8faf83ae2ed5",
+whales = ["0xfd640bdb374729fe78d24bbe4e5b8faf83ae2ed5",
         "0x01fb09f658fd186c4033500ae798917cacfda132",
         "0xc6c8978c4a213ebde8734432c75a7b5409999999",
         "0xbf8d5eb2723c3ab4bbd7527efb38c8e83d43832b",
@@ -46,6 +33,18 @@ whales = ["0x2c46b8fdcbe827a814da412ff1ebdc2544e683c1",
         "0x4cf5a42f10b11758ddb579dfb637d533ea858b43",
         "0xc02bafe7adc61ea8ec89c5e8eb391bb947ed222e",
         "0x4b44c71c34ecd2f64c1a4223149a2b39ca113f98",
+        "0x2c46b8fdcbe827a814da412ff1ebdc2544e683c1",
+        "0x82de83d35f6f95a87fa04328724d2063f834268f",
+        "0x52c717ce5a6b483a890bcdc3114ff140e679b43f",
+        "0x0d5872177064bc858c9dd926a02ce356a317727e",
+        "0x2d338c5549f437cd5f35a1d8c7a244c048f9c00a",
+        "0xcc64ea842fcde4283cf239259f7462ef809c44fd",
+        "0x86b695aaa2600668cec754c7827357626b188054",
+        "0x8c7de13ecf6e92e249696defed7aa81e9c93931a",
+        "0x0c8c62a7f883c6e47c8c5790474d4eb8a48924f2",
+        "0xa803fc1c1e83d6389865e1248dc924ed4c6953de",
+        "0xd3dcccbb8466cd22f090452cd0ffdb05f2e73dd3",
+        "0x1bbea62a08927c4b16493b5c20ab69b9dba295e0"
         ]
 
 #   [UTILITY]   change Address to all lowerCase
@@ -109,27 +108,40 @@ def percentage_Invested(action, balance, value):
         else:
                 return float(0.0)
 
+import random
+import urllib
+
     
 #   [MAIN ROOT]   Fetch all info 
+#@retry((Exception), tries=3, delay=0, backoff=0)
+
 def getTransactions(whale):
+    #try:
 
     # WebScarpping for the balance in tokens
     Total_Balance = w.getTokenBalance(whale)
 
     # BSC API MAIN RESPONSE 
     transactions = "https://api.bscscan.com/api?module=account&action=tokentx&address="+whale+"&page=1&offset=1&sort=desc&apikey="+ApiKey+".json"
-    
+    #print(transactions)
     # Fetch response json 
     '''
     #OUTDATED DUE ERROR 403 FORBIDDEN
     response = requests.get(transactions)
-    print(response.text)
+    #print(response.text)
     DecodedTransactions = json.loads(response.text)
     '''
+    
+    headers = {'User-Agent': 'XYZ/3.0'}
+    webbrowser.open(transactions, new=2)
 
-    req = Request(transactions , headers={'User-Agent': 'Mozilla/5.0'})    
+    req = Request(transactions , headers=headers)    
     response = urlopen(req).read()
-    DecodedTransactions = json.loads(response)  
+    DecodedTransactions = json.loads(response) 
+    #print(response)
+    
+    
+
 
 
     # Individual attributes
@@ -170,6 +182,15 @@ def getTransactions(whale):
     #print((whale, Total_Balance, hash, action, aumount, token, contractAddress, Value_Dollars, invested, Age))
 
     return (whale, Total_Balance, hash, action, aumount, token, contractAddress, Value_Dollars, invested, Age)
+#except urllib.error.HTTPError:
+#    print("FORBIDDEN ---------------- 0")
+#    if error_counter < 3:
+#        print(error_counter)
+#        print(error_counter + 1)
+
+
+
+
 
 
 WhalesDataset = {'Address': [],
@@ -216,20 +237,32 @@ for whale in whales:
     
     #getBalance(whale)
     print("Fetching Information for Whale: " + whale)
-    result = getTransactions(whale)
-    hash_ = result[2]
-    #print("HASH IN SCRIPT")
-    #print(hash_)
-    #print("--------------")
-    #print("RESULT:")
-    print("Number of same entries on database: " + str(SQL.check_hash_diplucate(hash_)))
-    if SQL.check_hash_diplucate(hash_) == 0:
-        print("commiting....")
-        mycursor.execute(sqlFormula, result)
-        mydb.commit()
-        print("COMMITED")
-    else:
-        print("ENTRY ALREADY IN DATABASE")
+    
+    def Results():
+        result = getTransactions(whale)
+        hash_ = result[2]
+        #print("HASH IN SCRIPT")
+        #print(hash_)
+        #print("--------------")
+        #print("RESULT:")
+        print("Number of same entries on database: " + str(SQL.check_hash_diplucate(hash_)))
+        if SQL.check_hash_diplucate(hash_) == 0:
+            print("commiting....")
+            mycursor.execute(sqlFormula, result)
+            mydb.commit()
+            print("COMMITED\n")
+        else:
+            print("ENTRY ALREADY IN DATABASE\n")
+    def two_tries():
+        try:
+            Results()
+        except urllib.error.HTTPError:
+            print("COULD NOT RETRIEVE INFO ON " + whale)
+            print("Trying one more time: ")
+            two_tries()
+            #will break if it finds 2 errors
+    
+    two_tries()
     whale_index += 1
     if whale_index == len(whales):
 
@@ -245,7 +278,7 @@ for whale in whales:
         pd.set_option('max_columns', None)
         print(temporal_panda)
     '''
-    time.sleep(1)
+    time.sleep(random.uniform(0.1, 2))
 
 
 
