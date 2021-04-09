@@ -137,21 +137,16 @@ def getTransactions(whale):
     '''
     
     headers = {'User-Agent': 'XYZ/3.0'}
-    webbrowser.open(transactions, new=2)
+    #webbrowser.open(transactions, new=2)
 
     req = Request(transactions , headers=headers)    
     response = urlopen(req).read()
-<<<<<<< HEAD
-    DecodedTransactions = json.loads(response)  
-    
-=======
     DecodedTransactions = json.loads(response) 
     #print(response)
     
     
 
 
->>>>>>> 7374ced8195e11b4bea3847302d2f309ee712e66
 
     # Individual attributes
 
