@@ -1,5 +1,4 @@
 
-a = 'AJYF'
-b = a.replace('AJ', '')
-print(a)  
-print(b)   # produces 'YF'
+print("RUNNING...")
+
+input = 3

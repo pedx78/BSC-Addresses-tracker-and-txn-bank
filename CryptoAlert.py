@@ -15,6 +15,7 @@ from datetime import timedelta
 import WebScrapper as w
 import mySql_Interaction as SQL
 
+
 #while True:
 
 
@@ -133,7 +134,7 @@ def getTransactions(whale):
     '''
     
     headers = {'User-Agent': 'XYZ/3.0'}
-    webbrowser.open(transactions, new=2)
+    #webbrowser.open(transactions, new=2)
 
     req = Request(transactions , headers=headers)    
     response = urlopen(req).read()
@@ -243,6 +244,7 @@ for whale in whales:
         hash_ = result[2]
         #print("HASH IN SCRIPT")
         #print(hash_)
+        print(result)
         #print("--------------")
         #print("RESULT:")
         print("Number of same entries on database: " + str(SQL.check_hash_diplucate(hash_)))
