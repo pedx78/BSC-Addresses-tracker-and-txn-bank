@@ -14,6 +14,8 @@ from datetime import timedelta
 
 import WebScrapper as w
 import mySql_Interaction as SQL
+import whatsappMessage as WM
+
 
 #while True:
 
@@ -222,7 +224,7 @@ def add_to_temporal(a, index):
 import mysql.connector
 
 mydb = mysql.connector.connect(
-    host = "localhost",
+    host = confidential.S_Credentials(),
     user = "root",
     passwd = "M0lusc0s436$",
     auth_plugin='mysql_native_password',
@@ -247,6 +249,7 @@ for whale in whales:
         hash_ = result[2]
         #print("HASH IN SCRIPT")
         #print(hash_)
+        #print(result)
         #print("--------------")
         #print("RESULT:")
         print("Number of same entries on database: " + str(SQL.check_hash_diplucate(hash_)))
@@ -254,7 +257,12 @@ for whale in whales:
             print("commiting....")
             mycursor.execute(sqlFormula, result)
             mydb.commit()
-            print("COMMITED\n")
+            print("COMMITED")
+            if result[1] > 1000000:
+                WM.SendEmail(result)
+                print("Alert Email Sent as Balance is > $1,000,000\n")
+            else:
+                print("No Email Sent as Balance is < $1,000,000\n")
         else:
             print("ENTRY ALREADY IN DATABASE\n")
     def two_tries():
@@ -282,7 +290,7 @@ for whale in whales:
         pd.set_option('max_columns', None)
         print(temporal_panda)
     '''
-    time.sleep(random.uniform(0.1, 2))
+    time.sleep(random.uniform(0.1, 1.5))
 
 
 
