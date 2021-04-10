@@ -1,7 +1,7 @@
 import mysql.connector
 #print("RUNNING")
 mydb = mysql.connector.connect(
-    host = "10.0.0.143",
+    host = "localhost",
     user = "root",
     passwd = "M0lusc0s436$",
     auth_plugin='mysql_native_password',

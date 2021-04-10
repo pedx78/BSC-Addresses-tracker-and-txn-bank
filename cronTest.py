@@ -1,0 +1,1 @@
+print("Hello Cron tab2")

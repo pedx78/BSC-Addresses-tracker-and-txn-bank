@@ -82,9 +82,9 @@ def timePassed(since):
     return solution
 
 #   [OPTION]    Get Balance on BNB of Address (on development)
-def getBalance(whale):
+#def getBalance(whale):
     #Call balance command, pass whale address and personal BSC APIkey, open browser with balance
-    whaleBalance = "https://api.bscscan.com/api?module=account&action=balance&address="+whale+"&tag=latest&apikey="+ApiKey+".json"
+    #whaleBalance = "https://api.bscscan.com/api?module=account&action=balance&address="+whale+"&tag=latest&apikey="+ApiKey+".json"
     #webbrowser.open(whaleBalance, new=2)
 
 #   [MAIN]  Return Transaction Direction -BUY SELL ERROR-
@@ -103,7 +103,7 @@ def percentage_Invested(action, balance, value):
                 perc = (value / balance) * 100
                 perc = max(0.0001, perc)
                 # Uncomment next for reciving a str
-                solution = str(perc) + " %" 
+                #solution = str(perc) + " %" 
                 return float(perc)
         else:
                 return float(0.0)
@@ -130,10 +130,14 @@ def getTransactions(whale):
     response = requests.get(transactions)
     #print(response.text)
     DecodedTransactions = json.loads(response.text)
+
+    #DecodedTransactions = requests.get(transactions).json
+    #print(DecodedTransactions)
+   
     '''
     
     headers = {'User-Agent': 'XYZ/3.0'}
-    webbrowser.open(transactions, new=2)
+    #webbrowser.open(transactions, new=2)
 
     req = Request(transactions , headers=headers)    
     response = urlopen(req).read()
@@ -148,7 +152,7 @@ def getTransactions(whale):
 
     #Direction
     from_ = DecodedTransactions['result'][0]['from']
-    to_ = DecodedTransactions['result'][0]['to']
+    #to_ = DecodedTransactions['result'][0]['to']
     action = txn_direction(whale,from_)
 
     #Token related
@@ -218,7 +222,7 @@ def add_to_temporal(a, index):
 import mysql.connector
 
 mydb = mysql.connector.connect(
-    host = "10.0.0.143",
+    host = "localhost",
     user = "root",
     passwd = "M0lusc0s436$",
     auth_plugin='mysql_native_password',
