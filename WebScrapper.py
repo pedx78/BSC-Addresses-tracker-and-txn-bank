@@ -28,9 +28,6 @@ def getTokenBalance(whale):
     #print(type(getId))
     results = getId.text
     
-    
-    
-    
 
     extra = getId.find_all('span', class_='badge badge-primary mx-1')
     #print("NEXT")

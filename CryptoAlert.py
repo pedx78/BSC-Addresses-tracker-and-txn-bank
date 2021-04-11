@@ -14,6 +14,8 @@ from datetime import timedelta
 
 import WebScrapper as w
 import mySql_Interaction as SQL
+import whatsappMessage as WM
+
 
 #while True:
 
@@ -23,6 +25,7 @@ print("Running...")
 
 ApiKey = confidential.get_BSC_API_KEY()
 whales = ["0xfd640bdb374729fe78d24bbe4e5b8faf83ae2ed5",
+        "0x0c8c62a7f883c6e47c8c5790474d4eb8a48924f2",
         "0x01fb09f658fd186c4033500ae798917cacfda132",
         "0xc6c8978c4a213ebde8734432c75a7b5409999999",
         "0xbf8d5eb2723c3ab4bbd7527efb38c8e83d43832b",
@@ -41,7 +44,6 @@ whales = ["0xfd640bdb374729fe78d24bbe4e5b8faf83ae2ed5",
         "0xcc64ea842fcde4283cf239259f7462ef809c44fd",
         "0x86b695aaa2600668cec754c7827357626b188054",
         "0x8c7de13ecf6e92e249696defed7aa81e9c93931a",
-        "0x0c8c62a7f883c6e47c8c5790474d4eb8a48924f2",
         "0xa803fc1c1e83d6389865e1248dc924ed4c6953de",
         "0xd3dcccbb8466cd22f090452cd0ffdb05f2e73dd3",
         "0x1bbea62a08927c4b16493b5c20ab69b9dba295e0"
@@ -222,7 +224,7 @@ def add_to_temporal(a, index):
 import mysql.connector
 
 mydb = mysql.connector.connect(
-    host = "localhost",
+    host = confidential.S_Credentials(),
     user = "root",
     passwd = "M0lusc0s436$",
     auth_plugin='mysql_native_password',
@@ -247,6 +249,7 @@ for whale in whales:
         hash_ = result[2]
         #print("HASH IN SCRIPT")
         #print(hash_)
+        #print(result)
         #print("--------------")
         #print("RESULT:")
         print("Number of same entries on database: " + str(SQL.check_hash_diplucate(hash_)))
@@ -254,7 +257,12 @@ for whale in whales:
             print("commiting....")
             mycursor.execute(sqlFormula, result)
             mydb.commit()
-            print("COMMITED\n")
+            print("COMMITED")
+            if result[1] > 1000000:
+                WM.SendEmail(result)
+                print("Alert Email Sent as Balance is > $1,000,000\n")
+            else:
+                print("No Email Sent as Balance is < $1,000,000\n")
         else:
             print("ENTRY ALREADY IN DATABASE\n")
     def two_tries():
@@ -282,7 +290,7 @@ for whale in whales:
         pd.set_option('max_columns', None)
         print(temporal_panda)
     '''
-    time.sleep(random.uniform(0.1, 2))
+    time.sleep(random.uniform(0.1, 1.5))
 
 
 
