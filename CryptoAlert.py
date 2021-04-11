@@ -25,6 +25,7 @@ print("Running...")
 
 ApiKey = confidential.get_BSC_API_KEY()
 whales = ["0xfd640bdb374729fe78d24bbe4e5b8faf83ae2ed5",
+        "0x0c8c62a7f883c6e47c8c5790474d4eb8a48924f2",
         "0x01fb09f658fd186c4033500ae798917cacfda132",
         "0xc6c8978c4a213ebde8734432c75a7b5409999999",
         "0xbf8d5eb2723c3ab4bbd7527efb38c8e83d43832b",
@@ -43,7 +44,6 @@ whales = ["0xfd640bdb374729fe78d24bbe4e5b8faf83ae2ed5",
         "0xcc64ea842fcde4283cf239259f7462ef809c44fd",
         "0x86b695aaa2600668cec754c7827357626b188054",
         "0x8c7de13ecf6e92e249696defed7aa81e9c93931a",
-        "0x0c8c62a7f883c6e47c8c5790474d4eb8a48924f2",
         "0xa803fc1c1e83d6389865e1248dc924ed4c6953de",
         "0xd3dcccbb8466cd22f090452cd0ffdb05f2e73dd3",
         "0x1bbea62a08927c4b16493b5c20ab69b9dba295e0"
@@ -84,9 +84,9 @@ def timePassed(since):
     return solution
 
 #   [OPTION]    Get Balance on BNB of Address (on development)
-def getBalance(whale):
+#def getBalance(whale):
     #Call balance command, pass whale address and personal BSC APIkey, open browser with balance
-    whaleBalance = "https://api.bscscan.com/api?module=account&action=balance&address="+whale+"&tag=latest&apikey="+ApiKey+".json"
+    #whaleBalance = "https://api.bscscan.com/api?module=account&action=balance&address="+whale+"&tag=latest&apikey="+ApiKey+".json"
     #webbrowser.open(whaleBalance, new=2)
 
 #   [MAIN]  Return Transaction Direction -BUY SELL ERROR-
@@ -105,7 +105,7 @@ def percentage_Invested(action, balance, value):
                 perc = (value / balance) * 100
                 perc = max(0.0001, perc)
                 # Uncomment next for reciving a str
-                solution = str(perc) + " %" 
+                #solution = str(perc) + " %" 
                 return float(perc)
         else:
                 return float(0.0)
@@ -132,6 +132,10 @@ def getTransactions(whale):
     response = requests.get(transactions)
     #print(response.text)
     DecodedTransactions = json.loads(response.text)
+
+    #DecodedTransactions = requests.get(transactions).json
+    #print(DecodedTransactions)
+   
     '''
     
     headers = {'User-Agent': 'XYZ/3.0'}
@@ -150,7 +154,7 @@ def getTransactions(whale):
 
     #Direction
     from_ = DecodedTransactions['result'][0]['from']
-    to_ = DecodedTransactions['result'][0]['to']
+    #to_ = DecodedTransactions['result'][0]['to']
     action = txn_direction(whale,from_)
 
     #Token related
@@ -220,7 +224,7 @@ def add_to_temporal(a, index):
 import mysql.connector
 
 mydb = mysql.connector.connect(
-    host = confidential.J_Credentials(),
+    host = confidential.S_Credentials(),
     user = "root",
     passwd = "M0lusc0s436$",
     auth_plugin='mysql_native_password',
@@ -286,7 +290,7 @@ for whale in whales:
         pd.set_option('max_columns', None)
         print(temporal_panda)
     '''
-    time.sleep(random.uniform(0.1, 2))
+    time.sleep(random.uniform(0.1, 1.5))
 
 
 

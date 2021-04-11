@@ -17,8 +17,8 @@ def S_Credentials():
     credentials = "localhost"
     return credentials
 
-print(J_Credentials())
-print(S_Credentials())
+#print(J_Credentials())
+#print(S_Credentials())
 
 
 

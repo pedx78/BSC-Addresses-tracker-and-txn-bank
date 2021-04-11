@@ -74,6 +74,7 @@ def SendEmail(info):
         server.sendmail(
             sender_email, receiver_email, message.as_string()
         )
+
     '''
 if info[1] > 1000000:
     SendEmail(info)

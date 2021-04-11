@@ -4,27 +4,30 @@ from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 #https://bscscan.com/address/0xcC64ea842FcDe4283CF239259f7462Ef809c44FD
 import webbrowser
+print("RUNNING")
 def getTokenBalance(whale):
     url = "https://bscscan.com/address/" + whale
     #print(url)
-  
+    #webbrowser.open(url, new=2)
     '''
-    url = "https://bscscan.com/address/" + whale
+    
+    #url = "https://bscscan.com/address/" + whale
     page = requests.get(url)
 
     soup = BeautifulSoup(page.content, 'html.parser')
     getId = soup.find(id='availableBalanceDropdown')
     results = getId.text
     '''
-    req = Request(url , headers={'User-Agent': 'Mozilla/5.0'})
-    page = urlopen(req).read()
-    
 
+    #url = "https://bscscan.com/address/" + whale
+    req = Request(url , headers={'User-Agent': 'Mozilla/5.0'})
+    page = urlopen(req)
     soup = BeautifulSoup(page, 'html.parser')
     #print(soup)
     getId = soup.find(id='availableBalanceDropdown')
     #print(type(getId))
     results = getId.text
+    
 
     extra = getId.find_all('span', class_='badge badge-primary mx-1')
     #print("NEXT")
@@ -44,8 +47,9 @@ def getTokenBalance(whale):
     return final
 
 
-
-#print(getTokenBalance("0x0c8c62a7f883c6e47c8c5790474d4eb8a48924f2"))
+#print("ALl good")
+#print(getTokenBalance("0x2c46b8fdcbe827a814da412ff1ebdc2544e683c1"))
+#print("ALL GOOD 2")
 
 
 
