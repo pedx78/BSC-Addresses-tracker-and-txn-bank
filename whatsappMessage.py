@@ -8,7 +8,7 @@ sender_email = "kayabacryptobot@gmail.com"
 receiver_email = "jdavidgomezca@gmail.com"
 password = "Sara2019"
 
-info = ('0xfd640bdb374729fe78d24bbe4e5b8faf83ae2ed5', 1274002.59, '0xb47f4ed276325ce0b7798bc6a8121ee46ea43a8c634b8920c5b8ecfca8cb9523', 'SELL', 21114296.98, 'HOGL Finance', '0x182c763a4b2fbd18c9b5f2d18102a0ddd9d5df26', 897.16, 0.0, datetime.datetime(2021, 4, 10, 11, 52, 32))
+#info = ('0xfd640bdb374729fe78d24bbe4e5b8faf83ae2ed5', 1274002.59, '0xb47f4ed276325ce0b7798bc6a8121ee46ea43a8c634b8920c5b8ecfca8cb9523', 'SELL', 21114296.98, 'HOGL Finance', '0x182c763a4b2fbd18c9b5f2d18102a0ddd9d5df26', 897.16, 0.0, datetime.datetime(2021, 4, 10, 11, 52, 32))
 
 
 def SendEmail(info):
@@ -74,6 +74,8 @@ def SendEmail(info):
         server.sendmail(
             sender_email, receiver_email, message.as_string()
         )
+    '''
 if info[1] > 1000000:
     SendEmail(info)
-    print("done")
+    print("Email Sent")
+    '''
