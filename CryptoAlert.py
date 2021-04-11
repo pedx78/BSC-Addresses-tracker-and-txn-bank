@@ -25,6 +25,7 @@ print("Running...")
 
 ApiKey = confidential.get_BSC_API_KEY()
 whales = ["0xfd640bdb374729fe78d24bbe4e5b8faf83ae2ed5",
+        "0x0c8c62a7f883c6e47c8c5790474d4eb8a48924f2",
         "0x01fb09f658fd186c4033500ae798917cacfda132",
         "0xc6c8978c4a213ebde8734432c75a7b5409999999",
         "0xbf8d5eb2723c3ab4bbd7527efb38c8e83d43832b",
@@ -43,7 +44,6 @@ whales = ["0xfd640bdb374729fe78d24bbe4e5b8faf83ae2ed5",
         "0xcc64ea842fcde4283cf239259f7462ef809c44fd",
         "0x86b695aaa2600668cec754c7827357626b188054",
         "0x8c7de13ecf6e92e249696defed7aa81e9c93931a",
-        "0x0c8c62a7f883c6e47c8c5790474d4eb8a48924f2",
         "0xa803fc1c1e83d6389865e1248dc924ed4c6953de",
         "0xd3dcccbb8466cd22f090452cd0ffdb05f2e73dd3",
         "0x1bbea62a08927c4b16493b5c20ab69b9dba295e0"
