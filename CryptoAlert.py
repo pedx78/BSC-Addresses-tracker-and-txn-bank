@@ -25,6 +25,7 @@ print("Running...")
 
 ApiKey = confidential.get_BSC_API_KEY()
 whales = ["0xfd640bdb374729fe78d24bbe4e5b8faf83ae2ed5",
+        "0x3fb7b0eed0efda15760f81f356f90d20de40b59f",
         "0x0c8c62a7f883c6e47c8c5790474d4eb8a48924f2",
         "0x01fb09f658fd186c4033500ae798917cacfda132",
         "0xc6c8978c4a213ebde8734432c75a7b5409999999",
@@ -258,7 +259,7 @@ for whale in whales:
             mycursor.execute(sqlFormula, result)
             mydb.commit()
             print("COMMITED")
-            if result[1] > 1000000:
+            if (result[1] > 1000000) or (whale == "0x3fb7b0eed0efda15760f81f356f90d20de40b59f"):
                 WM.SendEmail(result)
                 print("Alert Email Sent as Balance is > $1,000,000\n")
             else:
