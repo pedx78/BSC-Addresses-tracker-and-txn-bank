@@ -26,6 +26,8 @@ def getTokenBalance(whale):
     #print(soup)
     getId = soup.find(id='availableBalanceDropdown')
     #print(type(getId))
+    if getId == None:
+        print("COULDNT RETRIEVE BALANCE")
     results = getId.text
     
 

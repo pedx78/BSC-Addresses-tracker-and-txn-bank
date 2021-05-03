@@ -24,8 +24,12 @@ import whatsappMessage as WM
 print("Running...")
 
 ApiKey = confidential.get_BSC_API_KEY()
+# 1 2 3 4 are pumps
 whales = ["0xfd640bdb374729fe78d24bbe4e5b8faf83ae2ed5",
+        "0xc126a5b653e48f3a7c9cf000a3b795dd94a11d30",
         "0x3fb7b0eed0efda15760f81f356f90d20de40b59f",
+        "0xb0f50b8a1c3f7a8f6f3085c1df7b28663f4889f6",
+        "0xa129161965dcf2f1c1e72cf81b794fababb775f6",
         "0x0c8c62a7f883c6e47c8c5790474d4eb8a48924f2",
         "0x01fb09f658fd186c4033500ae798917cacfda132",
         "0xc6c8978c4a213ebde8734432c75a7b5409999999",
@@ -246,6 +250,7 @@ for whale in whales:
     print("Fetching Information for Whale: " + whale)
     
     def Results():
+        pumps = WM.Pumps_Addresses()
         result = getTransactions(whale)
         hash_ = result[2]
         #print("HASH IN SCRIPT")
@@ -259,9 +264,9 @@ for whale in whales:
             mycursor.execute(sqlFormula, result)
             mydb.commit()
             print("COMMITED")
-            if (result[1] > 1000000) or (whale == "0x3fb7b0eed0efda15760f81f356f90d20de40b59f"):
+            if (result[1] > 1000000) or (whale in pumps):
                 WM.SendEmail(result)
-                print("Alert Email Sent as Balance is > $1,000,000\n")
+                print("Alert Email Sent as Balance is > $1,000,000 or is boss address\n")
             else:
                 print("No Email Sent as Balance is < $1,000,000\n")
         else:
