@@ -17,7 +17,12 @@ def Pumps_Addresses():
     solution =  ['0x3fb7b0eed0efda15760f81f356f90d20de40b59f',
     '0xb0f50b8a1c3f7a8f6f3085c1df7b28663f4889f6',
     '0xa129161965dcf2f1c1e72cf81b794fababb775f6',
-    '0xc126a5b653e48f3a7c9cf000a3b795dd94a11d30']
+    '0xc126a5b653e48f3a7c9cf000a3b795dd94a11d30',
+    '0xa129161965dcf2f1c1e72cf81b794fababb775f6',
+    '0xb82e44ebdc162cf892c2bfaf2a8a4fe7b126f9e9',
+    '0xc126a5b653e48f3a7c9cf000a3b795dd94a11d30',
+    '0x074811b45242a8471885a31ff92afc768aea4903',
+    '0x8aa7de2ce13756f214a54c061958a2aca7685f5b']
     
     return solution
 
@@ -81,10 +86,15 @@ def SendEmail(info):
     
     pump_keys = Pumps_Addresses()
 
-    pump_dict = {'0x3fb7b0eed0efda15760f81f356f90d20de40b59f':'BOSSMAN%20WALLET%20(ORIGINAL)',
-        '0xb0f50b8a1c3f7a8f6f3085c1df7b28663f4889f6':'Shit%20Coin%20Pump%20Wallet%20one',
-        '0xa129161965dcf2f1c1e72cf81b794fababb775f6':'Shit%20Coin%20Pump%20Wallet%20two',
-        '0xc126a5b653e48f3a7c9cf000a3b795dd94a11d30': 'Wallet that tests to see honey pot before pump'}
+    pump_dict = {'0x3fb7b0eed0efda15760f81f356f90d20de40b59f':'BOSSMAN%20WALLET%20-ORIGINAL-',
+        '0xb0f50b8a1c3f7a8f6f3085c1df7b28663f4889f6':'Shit Coin Pump Wallet 1',
+        '0xa129161965dcf2f1c1e72cf81b794fababb775f6':'Shit Coin Pump Wallet 2',
+        '0xc126a5b653e48f3a7c9cf000a3b795dd94a11d30': 'Wallet that tests to see honey pot before pump',
+        '0xa129161965dcf2f1c1e72cf81b794fababb775f6': 'Shitcoin pump wallet 3',
+        '0xb82e44ebdc162cf892c2bfaf2a8a4fe7b126f9e9': 'Other Pump wallet 1',
+        '0xc126a5b653e48f3a7c9cf000a3b795dd94a11d30': 'Other Pump wallet 2',
+        '0x074811b45242a8471885a31ff92afc768aea4903': 'Other Pump wallet 3',
+        '0x8aa7de2ce13756f214a54c061958a2aca7685f5b': 'Other Pump wallet 4'}
 
     # Iteriate the pump_keys array and send message if the address is in it 
     for i in pump_keys:
