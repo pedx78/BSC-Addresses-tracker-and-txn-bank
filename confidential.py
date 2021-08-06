@@ -10,7 +10,7 @@ def get_BSC_API_KEY():
 #A5NDCHK6QBHRCXVSD2JHG9VMDQKPVZYHCE
 
 def J_Credentials():
-    credentials = "10.0.0.143"
+    credentials = "server_api"
     return credentials
 
 def S_Credentials():
