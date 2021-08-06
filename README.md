@@ -11,3 +11,4 @@ Summary:
 + Real-Time tracking of wallets on the BSC 
 + Instant notifications by email and via private telegram group
 + Stored more than 130,000 transactions, bnb balance, and bep-20 token balance of 28 "whales" for 3 months
++ Used webscrapping to get accounts bep-20 balances as there is no API for this proccess
